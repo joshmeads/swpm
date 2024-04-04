@@ -1,7 +1,7 @@
-import { it, expect, describe, vi } from 'vitest'
-import { commandVerification, detectVoltaPin } from './get'
-import { CommanderPackage, PackageJson } from '../translator/commander.types'
-import { getPackageJson } from './files.js'
+import { describe, expect, it, vi } from 'vitest';
+import { CommanderPackage, PackageJson } from '../translator/commander.types';
+import { getPackageJson } from './files.js';
+import { commandVerification, detectVoltaPin, get } from './get';
 
 vi.mock('./files.ts', async () => {
   const mod = await vi.importActual<typeof import('./files.ts')>('./files.ts')
@@ -81,5 +81,23 @@ describe('detectVoltaPin', () => {
     const isVoltaInstalled = await commandVerification('volta')
     const result = await detectVoltaPin(cmdr)
     expect(isVoltaInstalled && result).toBe(false)
+  })
+})
+
+describe('get()', () => {
+  it('should return the selected properties value from a passed object', () => {
+    const obj = {
+      a: 1,
+      b: 2,
+      c: {
+        one: 'one',
+        two: 'two'
+      }
+    }
+    expect(get(obj, 'a')).toBe(1)
+    expect(get(obj, 'b')).toBe(2)
+    expect(get(obj, 'c')).toBe(obj.c)
+    expect(get(obj, 'c.one')).toBe('one')
+    expect(get(obj, 'd')).toBeUndefined()
   })
 })

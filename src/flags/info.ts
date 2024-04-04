@@ -1,13 +1,25 @@
-import { exit } from 'node:process'
-import { stripIndents } from 'common-tags'
-import chalk from 'chalk'
+import chalk from 'chalk';
+import { stripIndents } from 'common-tags';
+import { exit } from 'node:process';
 
-import { getCommandResult } from '../helpers/cmds.js'
-import { getOriginIcon } from '../helpers/icons.js'
-import { getSwpmInfo } from '../helpers/info.js'
-import { commandVerification } from '../helpers/get.js'
+import { getCommandResult } from '../helpers/cmds.js';
+import { commandVerification, get } from '../helpers/get.js';
+import { getOriginIcon } from '../helpers/icons.js';
+import { getSwpmInfo } from '../helpers/info.js';
 
-import type { CommanderPackage } from '../translator/commander.types.js'
+import type { CommanderPackage } from '../translator/commander.types.js';
+
+type Info = {
+  _: CommanderPackage['cmd'],
+  using: CommanderPackage['cmd'],
+  error: string | null,
+  ready: boolean,
+  origin: CommanderPackage['origin'],
+  volta: boolean,
+  versions: Partial<{
+    [key in NonNullable<CommanderPackage['cmd']> | "swpm" | "node"]: string
+  }>
+}
 
 export const showNoPackageDetected = () => {
   console.error(stripIndents`
@@ -19,13 +31,37 @@ export const showNoPackageDetected = () => {
   exit(1)
 }
 
-export const showPackageInformation = async ({ cmd, origin, config, volta }: CommanderPackage) => {
+export const getPackageInformation = async ({ cmd, origin, config, volta }: CommanderPackage): Promise<Info> => {
   const nodeVersion = getCommandResult({ command: 'node --version', volta })
-
   const { version: swpmVersion } = await getSwpmInfo()
-
-  const color = config?.color ?? chalk.reset()
   const url = config?.url ?? ''
+  const isInstalled = !!cmd && await commandVerification(cmd)
+  const packageVersion = isInstalled ? getCommandResult({ command: `${cmd} --version`, volta }) : 'not found'
+
+  const errorNoCmdFound = !cmd && 'No Package Manager or Environment Variable was found.';
+  const errorCmdNotInstalled = !isInstalled && config?.cmd && url && `Command not installed. Visit ${url} for more information.`;
+
+  const output = {
+    _: cmd,
+    using: cmd,
+    error: errorNoCmdFound || errorCmdNotInstalled || null,
+    ready: !!cmd && isInstalled,
+    origin,
+    volta: !!volta,
+    versions: {
+      swpm: swpmVersion,
+      node: nodeVersion?.replace(/v/, ''),
+      ...(config?.cmd && { [config.cmd]: packageVersion }),
+    }
+  }
+  return output;
+}
+
+export const renderInfoMessage = async (info: Info, { config }: CommanderPackage) => {
+  const color = config?.color ?? chalk.reset();
+  const url = config?.url ?? '';
+
+  const { _: cmd, origin, volta, versions } = info;
 
   let message = ''
   if (cmd) {
@@ -50,8 +86,8 @@ export const showPackageInformation = async ({ cmd, origin, config, volta }: Com
 
   message += `
     ${chalk.bold('Versions:')}
-    ${chalk.hex('#368fb9').bold('s')}${chalk.hex('#4e4e4e').bold('w')}${chalk.hex('#f8ae01').bold('p')}${chalk.hex('#e32e37').bold('m')}: \t${swpmVersion}
-    ${chalk.hex('#689e65').bold('Node')}: \t${nodeVersion?.replace(/v/, '')}
+    ${chalk.hex('#368fb9').bold('s')}${chalk.hex('#4e4e4e').bold('w')}${chalk.hex('#f8ae01').bold('p')}${chalk.hex('#e32e37').bold('m')}: \t${versions.swpm}
+    ${chalk.hex('#689e65').bold('Node')}: \t${versions.node?.replace(/v/, '')}
   `
 
   const isInstalled = !!cmd && await commandVerification(cmd)
@@ -69,6 +105,30 @@ export const showPackageInformation = async ({ cmd, origin, config, volta }: Com
   }
 
   console.log(stripIndents`${message}`)
+}
 
+export const showPackageInformation = async (cmdr: CommanderPackage) => {
+  const output = await getPackageInformation(cmdr)
+  await renderInfoMessage(output, cmdr)
   exit(0)
 }
+
+export const showPackageInformationJson = async (cmdr: CommanderPackage) => {
+  const output = await getPackageInformation(cmdr)
+  console.log(JSON.stringify(output, null, 2))
+  exit(0);
+}
+
+
+  export const showPackageInformationSelect = async (cmdr: CommanderPackage, pick: string) => {
+    const info = await getPackageInformation(cmdr);
+    const output = get(info, pick);
+    if (output) {
+      console.log(output);
+      exit (0);
+    }
+    console.log(stripIndents`Invalid value - ${pick} doesn't match any available value`);
+    await renderInfoMessage(info, cmdr);
+    exit(1);
+  }
+

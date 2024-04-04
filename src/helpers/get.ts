@@ -1,13 +1,13 @@
-import { exit, env } from 'node:process'
-import { stripIndents } from 'common-tags'
-import chalk from 'chalk'
-import semver from 'semver'
-import commandExists from 'command-exists'
-import { getPackageJson, lockFileExists } from '../helpers/files.js'
-import packagesList, { packageExists } from '../packages/list.js'
+import chalk from 'chalk';
+import commandExists from 'command-exists';
+import { stripIndents } from 'common-tags';
+import { env, exit } from 'node:process';
+import semver from 'semver';
+import { getPackageJson, lockFileExists } from '../helpers/files.js';
+import packagesList, { packageExists } from '../packages/list.js';
 
-import type { PackageManagerList } from '../packages/packages.types.js'
-import type { CommanderPackage, PackageJson } from '../translator/commander.types.js'
+import type { PackageManagerList } from '../packages/packages.types.js';
+import type { CommanderPackage, PackageJson } from '../translator/commander.types.js';
 
 const propertyExists = (packageJson: PackageJson, property: string) => {
   return (property in packageJson)
@@ -130,4 +130,21 @@ export const commandVerification = async (cmd: PackageManagerList) => {
   } catch (error) {
     return false
   }
+}
+
+export const get = (
+  value: any,
+  path: string,
+): unknown | undefined => {
+  const segments = path.split(/[\.\[\]]/g)
+  let current: any = value
+  for (const key of segments) {
+    if (current === null) return undefined;
+    if (current === undefined) return undefined;
+    const dequoted = key.replace(/['"]/g, '')
+    if (dequoted.trim() === '') continue
+    current = current[dequoted]
+  }
+  if (current === undefined) return undefined;
+  return current
 }
