@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
-import { CommanderPackage, PackageJson } from '../translator/commander.types';
-import { getPackageJson } from './files.js';
-import { commandVerification, detectVoltaPin, get } from './get';
+import { describe, expect, it, vi } from 'vitest'
+import { CommanderPackage, PackageJson } from '../translator/commander.types'
+import { getPackageJson } from './files.js'
+import { commandVerification, detectVoltaPin, get } from './get'
 
 vi.mock('./files.ts', async () => {
   const mod = await vi.importActual<typeof import('./files.ts')>('./files.ts')

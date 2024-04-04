@@ -1,13 +1,13 @@
-import chalk from 'chalk';
-import { stripIndents } from 'common-tags';
-import { exit } from 'node:process';
+import chalk from 'chalk'
+import { stripIndents } from 'common-tags'
+import { exit } from 'node:process'
 
-import { getCommandResult } from '../helpers/cmds.js';
-import { commandVerification, get } from '../helpers/get.js';
-import { getOriginIcon } from '../helpers/icons.js';
-import { getSwpmInfo } from '../helpers/info.js';
+import { getCommandResult } from '../helpers/cmds.js'
+import { commandVerification, get } from '../helpers/get.js'
+import { getOriginIcon } from '../helpers/icons.js'
+import { getSwpmInfo } from '../helpers/info.js'
 
-import type { CommanderPackage } from '../translator/commander.types.js';
+import type { CommanderPackage } from '../translator/commander.types.js'
 
 type Info = {
   _: CommanderPackage['cmd'],
@@ -38,8 +38,8 @@ export const getPackageInformation = async ({ cmd, origin, config, volta }: Comm
   const isInstalled = !!cmd && await commandVerification(cmd)
   const packageVersion = isInstalled ? getCommandResult({ command: `${cmd} --version`, volta }) : 'not found'
 
-  const errorNoCmdFound = !cmd && 'No Package Manager or Environment Variable was found.';
-  const errorCmdNotInstalled = !isInstalled && config?.cmd && url && `Command not installed. Visit ${url} for more information.`;
+  const errorNoCmdFound = !cmd && 'No Package Manager or Environment Variable was found.'
+  const errorCmdNotInstalled = !isInstalled && config?.cmd && url && `Command not installed. Visit ${url} for more information.`
 
   const output = {
     _: cmd,
@@ -54,14 +54,14 @@ export const getPackageInformation = async ({ cmd, origin, config, volta }: Comm
       ...(config?.cmd && { [config.cmd]: packageVersion }),
     }
   }
-  return output;
+  return output
 }
 
 export const renderInfoMessage = async (info: Info, { config }: CommanderPackage) => {
-  const color = config?.color ?? chalk.reset();
-  const url = config?.url ?? '';
+  const color = config?.color ?? chalk.reset()
+  const url = config?.url ?? ''
 
-  const { _: cmd, origin, volta, versions } = info;
+  const { _: cmd, origin, volta, versions } = info
 
   let message = ''
   if (cmd) {
@@ -116,19 +116,19 @@ export const showPackageInformation = async (cmdr: CommanderPackage) => {
 export const showPackageInformationJson = async (cmdr: CommanderPackage) => {
   const output = await getPackageInformation(cmdr)
   console.log(JSON.stringify(output, null, 2))
-  exit(0);
+  exit(0)
 }
 
 
   export const showPackageInformationSelect = async (cmdr: CommanderPackage, pick: string) => {
-    const info = await getPackageInformation(cmdr);
-    const output = get(info, pick);
+    const info = await getPackageInformation(cmdr)
+    const output = get(info, pick)
     if (output) {
-      console.log(output);
-      exit (0);
+      console.log(output)
+      exit (0)
     }
-    console.log(stripIndents`Invalid value - ${pick} doesn't match any available value`);
-    await renderInfoMessage(info, cmdr);
-    exit(1);
+    console.log(stripIndents`Invalid value - ${pick} doesn't match any available value`)
+    await renderInfoMessage(info, cmdr)
+    exit(1)
   }
 

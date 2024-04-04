@@ -1,26 +1,26 @@
 #!/usr/bin/env node
 
-import yargs from './swpm/config.js';
+import yargs from './swpm/config.js'
 
-import chalk from 'chalk';
-import { stripIndent } from 'common-tags';
-import { exit } from 'node:process';
-import prompts from 'prompts';
+import chalk from 'chalk'
+import { stripIndent } from 'common-tags'
+import { exit } from 'node:process'
+import prompts from 'prompts'
 
-import { autoUpdate } from '../libs/autoUpdate.js';
+import { autoUpdate } from '../libs/autoUpdate.js'
 
-import { showCommandAlias } from '../flags/alias.js';
-import { showNoPackageDetected, showPackageInformation, showPackageInformationJson, showPackageInformationSelect } from '../flags/info.js';
-import { pinPackageManager } from '../flags/pin.js';
-import { testCommand } from '../flags/test.js';
-import { unpinPackageManager } from '../flags/unpin.js';
+import { showCommandAlias } from '../flags/alias.js'
+import { showNoPackageDetected, showPackageInformation, showPackageInformationJson, showPackageInformationSelect } from '../flags/info.js'
+import { pinPackageManager } from '../flags/pin.js'
+import { testCommand } from '../flags/test.js'
+import { unpinPackageManager } from '../flags/unpin.js'
 
-import { runCommand, showCommand } from '../helpers/cmds.js';
-import { debug } from '../helpers/debug.js';
-import { commandVerification } from '../helpers/get.js';
-import { setPackageVersion } from '../helpers/set.js';
+import { runCommand, showCommand } from '../helpers/cmds.js'
+import { debug } from '../helpers/debug.js'
+import { commandVerification } from '../helpers/get.js'
+import { setPackageVersion } from '../helpers/set.js'
 
-import cmdr from '../translator/commander.js';
+import cmdr from '../translator/commander.js'
 
 if (yargs.debug) {
   debug(yargs)
