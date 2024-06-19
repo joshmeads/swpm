@@ -1,13 +1,13 @@
-import chalk from 'chalk'
-import { stripIndents } from 'common-tags'
-import { exit } from 'node:process'
+import chalk from 'chalk';
+import { stripIndents } from 'common-tags';
+import { exit } from 'node:process';
 
-import { getCommandResult } from '../helpers/cmds.js'
-import { commandVerification, get } from '../helpers/get.js'
-import { getOriginIcon } from '../helpers/icons.js'
-import { getSwpmInfo } from '../helpers/info.js'
+import { getCommandResult } from '../helpers/cmds.js';
+import { commandVerification, get } from '../helpers/get.js';
+import { getOriginIcon } from '../helpers/icons.js';
+import { getSwpmInfo } from '../helpers/info.js';
 
-import type { CommanderPackage } from '../translator/commander.types.js'
+import type { CommanderPackage } from '../translator/commander.types.js';
 
 type Info = {
   _: CommanderPackage['cmd'],
@@ -115,7 +115,7 @@ export const showPackageInformation = async (cmdr: CommanderPackage) => {
 
 export const showPackageInformationJson = async (cmdr: CommanderPackage) => {
   const output = await getPackageInformation(cmdr)
-  console.log(JSON.stringify(output, null, 2))
+  process.stdout.write(JSON.stringify(output))
   exit(0)
 }
 
@@ -124,7 +124,11 @@ export const showPackageInformationJson = async (cmdr: CommanderPackage) => {
     const info = await getPackageInformation(cmdr)
     const output = get(info, pick)
     if (output) {
-      console.log(output)
+      if (typeof output === 'string') {
+        process.stdout.write(output)
+      } else {
+        process.stdout.write(JSON.stringify(output, null, 2))
+      }
       exit (0)
     }
     console.log(stripIndents`Invalid value - ${pick} doesn't match any available value`)
