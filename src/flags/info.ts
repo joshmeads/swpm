@@ -44,6 +44,7 @@ export const getPackageInformation = async ({ cmd, origin, config, volta }: Comm
   const output = {
     _: cmd,
     using: cmd,
+    version: packageVersion,
     error: errorNoCmdFound || errorCmdNotInstalled || null,
     ready: !!cmd && isInstalled,
     origin,
