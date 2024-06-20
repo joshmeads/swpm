@@ -38,12 +38,21 @@ export const getPackageInformation = async ({ cmd, origin, config, volta }: Comm
   const isInstalled = !!cmd && await commandVerification(cmd)
   const packageVersion = isInstalled ? getCommandResult({ command: `${cmd} --version`, volta }) : 'not found'
 
+  let alias = undefined;
+  const majorVersionRegex = parseInt(packageVersion?.match(/\d+/m)?.[0] ?? '');
+  const majorVersion = Number.isNaN(majorVersionRegex) ? undefined : majorVersionRegex;
+  if (cmd === 'yarn' && typeof majorVersion === 'number') {
+    alias = majorVersion > 1 ? 'berry' : 'classic'
+  }
+
   const errorNoCmdFound = !cmd && 'No Package Manager or Environment Variable was found.'
   const errorCmdNotInstalled = !isInstalled && config?.cmd && url && `Command not installed. Visit ${url} for more information.`
 
   const output = {
     _: cmd,
     using: cmd,
+    alias: alias,
+    majorVersion: majorVersion,
     version: packageVersion,
     error: errorNoCmdFound || errorCmdNotInstalled || null,
     ready: !!cmd && isInstalled,
