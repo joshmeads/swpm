@@ -1,18 +1,18 @@
-import { it, expect, describe } from 'vitest'
-import { availablePackages, packageExists, getPackageConfiguration } from './list.js'
+import { describe, expect, it } from 'vitest';
+import { availablePackages, getPackageConfiguration, packageConfigExists } from './list.js';
 
 describe('availablePackages()', () => {
   it('should return a list of available packages', () => {
-    const expectedResult = ['npm', 'yarn', 'yarn@berry', 'pnpm', 'bun']
+    const expectedResult = ['npm', 'yarn@classic', 'yarn@berry', 'pnpm', 'bun']
     const result = availablePackages()
     expect(result).toMatchObject(expectedResult)
   })
 })
 
-describe('packageExists()', () => {
+describe('packageConfigExists()', () => {
   it('should return true if cmd exists', () => {
     const cmd = 'npm'
-    const result = packageExists(cmd)
+    const result = packageConfigExists(cmd)
     expect(result).toBeTruthy()
   })
 })
@@ -34,7 +34,7 @@ describe('getPackageConfiguration()', () => {
       lockFiles: ['package-lock.json']
     }
     const pkg = {
-      cmd: 'npm'
+      id: 'npm'
     } as const
     const result = await getPackageConfiguration(pkg, 'ts')
     const { cmd, lockFiles } = result

@@ -1,9 +1,9 @@
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { testCommandResult } from '../../../../.vitest/helpers'
 
 export const removeCases = [
   ['npm', 'npm uninstall vite'],
-  ['yarn', 'yarn remove vite'],
+  ['yarn@classic', 'yarn remove vite'],
   ['yarn@berry', 'yarn remove vite'],
   ['pnpm', 'pnpm uninstall vite'],
   ['bun', 'bun remove vite']
@@ -19,7 +19,7 @@ describe('remove', () => {
 describe('remove --save-dev', () => {
   it.each([
     ['npm', 'npm uninstall vite --save-dev'],
-    ['yarn', 'yarn remove vite --dev'],
+    ['yarn@classic', 'yarn remove vite --dev'],
     ['yarn@berry', 'yarn remove vite --dev'],
     ['pnpm', 'pnpm uninstall vite --save-dev'],
     ['bun', 'bun remove vite --dev']
@@ -32,7 +32,7 @@ describe('remove --save-dev', () => {
 describe('remove --save-optional', () => {
   it.each([
     ['npm', 'npm uninstall vite --save-optional'],
-    ['yarn', 'yarn remove vite --optional'],
+    ['yarn@classic', 'yarn remove vite --optional'],
     ['yarn@berry', 'yarn remove vite --optional'],
     ['pnpm', 'pnpm uninstall vite --save-optional'],
     ['bun', 'bun remove vite --optional']
@@ -45,7 +45,7 @@ describe('remove --save-optional', () => {
 describe('remove --save-peer', () => {
   it.each([
     ['npm', 'npm uninstall vite --save-peer'],
-    ['yarn', 'yarn remove vite --peer'],
+    ['yarn@classic', 'yarn remove vite --peer'],
     ['yarn@berry', 'yarn remove vite --peer'],
     ['pnpm', 'pnpm uninstall vite --save-peer'],
     ['bun', ''] // not available
@@ -57,7 +57,7 @@ describe('remove --save-peer', () => {
 
 export const removeGlobalCases = [
   ['npm', 'npm uninstall vite --global'],
-  ['yarn', 'yarn global remove vite'],
+  ['yarn@classic', 'yarn global remove vite'],
   ['yarn@berry', 'yarn global remove vite'],
   ['pnpm', 'pnpm uninstall vite --global'],
   ['bun', 'bun remove vite --global']

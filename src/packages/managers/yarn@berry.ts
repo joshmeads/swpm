@@ -1,7 +1,8 @@
 import type { PackageConfiguration } from '../packages.types.js'
 
 const yarnBerry: PackageConfiguration = {
-  cmd: 'yarn@berry',
+  id: 'yarn@berry',
+  cmd: 'yarn',
   exc: 'yarn dlx',
   color: '#3a90b8',
   url: 'https://yarnpkg.com/',

@@ -1,9 +1,9 @@
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { testCommandResult } from '../../../../.vitest/helpers'
 
 export const installCases = [
   ['npm', 'npm install'],
-  ['yarn', 'yarn install'],
+  ['yarn@classic', 'yarn install'],
   ['yarn@berry', 'yarn install'],
   ['pnpm', 'pnpm install'],
   ['bun', 'bun install']
@@ -18,7 +18,7 @@ describe('install', () => {
 
 export const installFrozenCases = [
   ['npm', 'npm ci'],
-  ['yarn', 'yarn install --frozen-lockfile'],
+  ['yarn@classic', 'yarn install --frozen-lockfile'],
   ['yarn@berry', 'yarn install --immutable'],
   ['pnpm', 'pnpm install --frozen-lockfile'],
   ['bun', 'bun install --frozen-lockfile']
@@ -33,7 +33,7 @@ describe('install --frozen', () => {
 
 export const installLockCases = [
   ['npm', 'npm install --no-package-lock'],
-  ['yarn', 'yarn install --no-lockfile'],
+  ['yarn@classic', 'yarn install --no-lockfile'],
   ['yarn@berry', 'yarn install --no-lockfile'],
   ['pnpm', ''], // not available
   ['bun', 'bun install --no-save']

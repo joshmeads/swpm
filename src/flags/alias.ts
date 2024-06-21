@@ -1,7 +1,7 @@
-import { exit } from 'node:process'
-import { stripIndents } from 'common-tags'
 import chalk from 'chalk'
 import commandExists from 'command-exists'
+import { stripIndents } from 'common-tags'
+import { exit } from 'node:process'
 
 import { getSwpmInfo } from '../helpers/info.js'
 
@@ -15,9 +15,9 @@ const commandVerification = async (cmd: string) => {
 }
 
 const aliases = {
-  sp: 'swpm --pin <npm|yarn[@berry]|pnpm|bun>',
+  sp: 'swpm --pin <npm|yarn[@berry|@classic]|pnpm|bun>',
   spn: 'swpm --pin npm',
-  spy: 'swpm --pin yarn',
+  spy: 'swpm --pin yarn@classic',
   spyb: 'swpm --pin yarn@berry',
   spp: 'swpm --pin pnpm',
   spb: 'swpm --pin bun',

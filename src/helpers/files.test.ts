@@ -1,7 +1,7 @@
-import { it, expect, describe } from 'vitest'
-import { cwd } from 'node:process'
 import { resolve as resolvePath } from 'node:path'
-import { fileExists, pathExists, getPackageJson, lockFileExists } from './files.js'
+import { cwd } from 'node:process'
+import { describe, expect, it } from 'vitest'
+import { fileExists, getPackageJson, lockFileExists, pathExists } from './files.js'
 
 describe('fileExists', () => {
   it('should return true if file exists', async () => {
@@ -44,7 +44,7 @@ describe('getPackageJson', () => {
     const fileName = 'package.json'
     const pkg = await getPackageJson(fileName)
     expect(pkg).toBeDefined()
-    expect(pkg?.name).toBe('swpm')
+    expect(pkg?.name).toBe('@joshmeads/swpm')
     process.chdir(currentCwd)
   })
 

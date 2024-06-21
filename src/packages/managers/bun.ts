@@ -1,6 +1,7 @@
 import type { PackageConfiguration } from '../packages.types.js'
 
 const bun: PackageConfiguration = {
+  id: 'bun',
   cmd: 'bun',
   exc: 'bunx',
   color: '#fbf0df',

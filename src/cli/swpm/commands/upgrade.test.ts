@@ -1,9 +1,9 @@
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { testCommandResult } from '../../../../.vitest/helpers'
 
 export const upgradeCases = [
   ['npm', 'npm add vite@latest'],
-  ['yarn', 'yarn upgrade vite --latest'],
+  ['yarn@classic', 'yarn upgrade vite --latest'],
   ['yarn@berry', 'yarn up vite'],
   ['pnpm', 'pnpm update vite --latest'],
   ['bun', '']
@@ -19,7 +19,7 @@ describe('upgrade', () => {
 describe('upgrade --save-exact', () => {
   it.each([
     ['npm', 'npm add vite@latest --save-exact'],
-    ['yarn', 'yarn upgrade vite --exact --latest'],
+    ['yarn@classic', 'yarn upgrade vite --exact --latest'],
     ['yarn@berry', 'yarn up vite --exact'],
     ['pnpm', 'pnpm update vite --save-exact --latest'],
     ['bun', '']
@@ -32,7 +32,7 @@ describe('upgrade --save-exact', () => {
 describe('upgrade --global', () => {
   it.each([
     ['npm', 'npm add vite@latest --global'],
-    ['yarn', 'yarn global upgrade vite --latest'],
+    ['yarn@classic', 'yarn global upgrade vite --latest'],
     ['yarn@berry', 'yarn global up vite'],
     ['pnpm', 'pnpm update vite --global --latest'],
     ['bun', '']

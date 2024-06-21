@@ -1,6 +1,7 @@
 import type { PackageConfiguration } from '../packages.types.js'
 
 const npm: PackageConfiguration = {
+  id: 'npm',
   cmd: 'npm',
   exc: 'npx',
   color: '#e32e37',

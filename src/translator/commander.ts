@@ -1,9 +1,11 @@
 import type { CommanderPackage } from './commander.types.js'
 
 const commanderInitValues: CommanderPackage = {
+  id: undefined,
   cmd: undefined,
   args: [],
   origin: undefined,
+  version: undefined,
   config: undefined,
   volta: false
 }

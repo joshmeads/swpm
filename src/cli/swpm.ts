@@ -30,7 +30,7 @@ if (yargs.debug) {
 await autoUpdate(cmdr)
 
 if (yargs?.pin) {
-  const { cmd, config } = cmdr
+  const { cmd, config, id } = cmdr
 
   const isInstalled = !!cmd && await commandVerification(cmd)
 
@@ -52,12 +52,12 @@ if (yargs?.pin) {
     }
   }
 
-  if (cmd) {
-    await setPackageVersion(cmd)
+  if (id) {
+    await setPackageVersion(id)
   }
 
-  if (cmd && config) {
-    await pinPackageManager({ cmd, config })
+  if (id && config) {
+    await pinPackageManager({ id, config })
   }
 }
 

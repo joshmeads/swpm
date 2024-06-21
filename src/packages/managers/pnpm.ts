@@ -1,6 +1,7 @@
 import type { PackageConfiguration } from '../packages.types.js'
 
 const pnpm: PackageConfiguration = {
+  id: 'pnpm',
   cmd: 'pnpm',
   exc: 'pnpm dlx',
   color: '#f7ad24',

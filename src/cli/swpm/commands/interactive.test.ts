@@ -1,9 +1,9 @@
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { testCommandResult } from '../../../../.vitest/helpers'
 
 export const interactiveCases = [
   ['npm', ''],
-  ['yarn', 'yarn upgrade-interactive'],
+  ['yarn@classic', 'yarn upgrade-interactive'],
   ['yarn@berry', 'yarn upgrade-interactive'],
   ['pnpm', 'pnpm upgrade --interactive'],
   ['bun', '']
@@ -19,7 +19,7 @@ describe('interactive', () => {
 describe('interactive --latest', () => {
   it.each([
     ['npm', ''],
-    ['yarn', 'yarn upgrade-interactive --latest'],
+    ['yarn@classic', 'yarn upgrade-interactive --latest'],
     ['yarn@berry', 'yarn upgrade-interactive --latest'],
     ['pnpm', 'pnpm upgrade --latest --interactive'],
     ['bun', '']
@@ -32,7 +32,7 @@ describe('interactive --latest', () => {
 describe('interactive --global', () => {
   it.each([
     ['npm', ''],
-    ['yarn', 'yarn global upgrade-interactive'],
+    ['yarn@classic', 'yarn global upgrade-interactive'],
     ['yarn@berry', 'yarn global upgrade-interactive'],
     ['pnpm', 'pnpm upgrade --global --interactive'],
     ['bun', '']
@@ -45,7 +45,7 @@ describe('interactive --global', () => {
 describe('interactive --latest --global', () => {
   it.each([
     ['npm', ''],
-    ['yarn', 'yarn global upgrade-interactive --latest'],
+    ['yarn@classic', 'yarn global upgrade-interactive --latest'],
     ['yarn@berry', 'yarn global upgrade-interactive --latest'],
     ['pnpm', 'pnpm upgrade --latest --global --interactive'],
     ['bun', '']

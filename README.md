@@ -5,7 +5,7 @@
 [![Sonar-reliability](https://sonarcloud.io/api/project_badges/measure?project=dein%3Aswpm&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=dein%3Aswpm)
 [![sonar-security](https://sonarcloud.io/api/project_badges/measure?project=dein%3Aswpm&metric=security_rating)](https://sonarcloud.io/dashboard?id=dein%3Aswpm)
 [![sonar-maintainability](https://sonarcloud.io/api/project_badges/measure?project=dein%3Aswpm&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=dein%3Aswpm)
-[![sonar-coverage](https://sonarcloud.io/api/project_badges/measure?project=dein%3Aswpm&metric=coverage)](https://sonarcloud.io/dashboard?id=dein%3Aswpm)  
+[![sonar-coverage](https://sonarcloud.io/api/project_badges/measure?project=dein%3Aswpm&metric=coverage)](https://sonarcloud.io/dashboard?id=dein%3Aswpm)
 [![npm-version](https://img.shields.io/npm/v/swpm.svg?color=blue)](https://www.npmjs.com/package/swpm)
 [![npm-downloads](https://img.shields.io/npm/dt/swpm)](https://www.npmjs.com/package/swpm)
 [![node-engine](https://img.shields.io/node/v/swpm.svg?color=blue)](https://nodejs.org)
@@ -42,9 +42,9 @@ This is an example of how #swpm works. The same command, no matter the package m
 
 ![swpm-example](https://raw.githubusercontent.com/deinsoftware/swpm/main/.github/social/example.png)
 
-> **Note**:  
-> We will start with most used command, then other commands will be added gradually.  
-> Track the command progress implementation on [CHEATSHEET](CHEATSHEET.md).  
+> **Note**:
+> We will start with most used command, then other commands will be added gradually.
+> Track the command progress implementation on [CHEATSHEET](CHEATSHEET.md).
 >
 > Progress: **90%** of commands included.
 
@@ -97,12 +97,12 @@ Commands:
 
 Options:
   -u, --use    use a package manager
-                           [choices: "npm", "yarn", "yarn@berry", "pnpm", "bun"]
+                           [choices: "npm", "yarn@classic", "yarn@berry", "pnpm", "bun"]
   -p, --pin    pin a package manager
-                           [choices: "npm", "yarn", "yarn@berry", "pnpm", "bun"]
+                           [choices: "npm", "yarn@classic", "yarn@berry", "pnpm", "bun"]
       --unpin  unpin current package manager
   -t, --test   test command (without running)
-                           [choices: "npm", "yarn", "yarn@berry", "pnpm", "bun"]
+                           [choices: "npm", "yarn@classic", "yarn@berry", "pnpm", "bun"]
   -m, --mute   mute command translation
       --alias  show command alias                                      [boolean]
       --info   show information and versions                           [boolean]
@@ -128,7 +128,7 @@ This command installs a package and any packages that it depends on. If the pack
 | `--frozen`       | `-F`  | install dependencies from lock file (without updating it). Also known as `ci` |
 | `--package-lock` | `-P`  | install dependencies but don't read or generate a lockfile                    |
 
-> **Warning**:  
+> **Warning**:
 > The `--package-lock` argument is not available on **bun** Package Manager.
 
 #### Add
@@ -201,7 +201,7 @@ swpm upgrade <package> [args]
 | `--save-exact`    | `-E`  | Dependencies will be upgrade with an exact version rather than using default semver range operator    |
 | `--global`        | `-g`  | Upgrade the current package context as a global package                                               |
 
-> **Warning**:  
+> **Warning**:
 > This command is not available on **bun** Package Manager.
 
 #### Interactive
@@ -219,7 +219,7 @@ swpm interactive [args]
 | `--latest`        | `-L`  | Updates all dependencies, ignoring ranges specified in `package.json` |
 | `--global`        | `-g`  | Update the current package context as a global package                |
 
-> **Warning**:  
+> **Warning**:
 > This command is not available on **npm** and **bun** Package Manager.
 
 #### Open
@@ -243,7 +243,7 @@ swpm open [resource] [args]
 | `--coverage [filePath]`  | `-C`  | Browse coverage report on browser (`./coverage/index.html` by default) |
 | `--npm [package]`        | `-N`  | Browse package on nmpjs.com (current name by default)                  |
 
-> **Info**:  
+> **Info**:
 > Those `--git` flags are compatible with `GitHub`, `GitLab` and `BitBucket`.
 
 **Examples:**
@@ -307,8 +307,8 @@ swpm clean [args]
 | `--fresh`         |       | Run all args except `--lock`                                                         |
 | `--all`           |       | Run all args and also delete the **.yarn** folder                                    |
 
-> `--fresh` is a good choice when you want to clean the project and reinstall all packages again with `swpm install --frozen` and preserving the lock files intact.  
-> `--all` is a good choice when you want to clean the project and migrate to a different Package Manager or reinstalling all packages and create/update the lock files.  
+> `--fresh` is a good choice when you want to clean the project and reinstall all packages again with `swpm install --frozen` and preserving the lock files intact.
+> `--all` is a good choice when you want to clean the project and migrate to a different Package Manager or reinstalling all packages and create/update the lock files.
 
 ⇧ [Back to menu](#menu)
 
@@ -327,11 +327,11 @@ swpm init [--yes]
 swpm create <name> [<args>]
 ```
 
-> To run these commands in a path where a `package.json` didn't exist add the flag `--use <npm|yarn[@berry]|pnpm|bun>` at the end or setup an `SWPM` environment variable.
+> To run these commands in a path where a `package.json` didn't exist add the flag `--use <npm|yarn[@berry|@classic]|pnpm|bun>` at the end or setup an `SWPM` environment variable.
 
 #### Login/Logout
 
-Login and logout to [https://www.npmjs.com/](https://www.npmjs.com/).  
+Login and logout to [https://www.npmjs.com/](https://www.npmjs.com/).
 Commonly used when you need to publish or admin packages.
 
 ```bash
@@ -339,12 +339,12 @@ swpm login
 swpm logout
 ```
 
-> To run these commands in a path where a `package.json` didn't exist add the flag `--use <npm|yarn[@berry]|pnpm|bun>` at the end or setup an `SWPM` environment variable.
+> To run these commands in a path where a `package.json` didn't exist add the flag `--use <npm|yarn[@berry|@classic]|pnpm|bun>` at the end or setup an `SWPM` environment variable.
 
 #### Scripts
 
-This runs an arbitrary command from a package's "scripts" object.  
-If no "command" is provided, it will list the available scripts.  
+This runs an arbitrary command from a package's "scripts" object.
+If no "command" is provided, it will list the available scripts.
 
 ```bash
 swpm run <command> [<args>]
@@ -382,7 +382,7 @@ swpm config set save-exact true
 swpm config set save-prefix '~'
 ```
 
-> To run these commands in a path where a `package.json` didn't exist add the flag `--use <npm|yarn[@berry]|pnpm|bun>` at the end.
+> To run these commands in a path where a `package.json` didn't exist add the flag `--use <npm|yarn[@berry|@classic]|pnpm|bun>` at the end.
 
 #### Versions
 
@@ -392,7 +392,7 @@ swpm config set save-prefix '~'
 swpm outdated [<package>] [--global]
 ```
 
-> To run this commands in a path where a `package.json` didn't exist with flag `--global` add the flag `--use <npm|yarn[@berry]|pnpm|bun>` at the end or setup an `SWPM` environment variable.
+> To run this commands in a path where a `package.json` didn't exist with flag `--global` add the flag `--use <npm|yarn[@berry|@classic]|pnpm|bun>` at the end or setup an `SWPM` environment variable.
 
 ⇧ [Back to menu](#menu)
 
@@ -415,9 +415,9 @@ swpx [<command>] [FLAGS]
 
 Options:
   -u, --use    use a package manager
-                           [choices: "npm", "yarn", "yarn@berry", "pnpm", "bun"]
+                           [choices: "npm", "yarn@classic", "yarn@berry", "pnpm", "bun"]
   -t, --test   test command (without running)
-                           [choices: "npm", "yarn", "yarn@berry", "pnpm", "bun"]
+                           [choices: "npm", "yarn@classic", "yarn@berry", "pnpm", "bun"]
   -m, --mute   mute command translation
       --alias  show command alias                                      [boolean]
       --info   show information and versions                           [boolean]
@@ -443,9 +443,9 @@ Quick and short aliases for `swpm` and `swpx` commands.
 
 | Alias  | Command                                     |
 | ------ | ------------------------------------------- |
-| `sp`   | `swpm --pin <npm\|yarn[@berry]\|pnpm\|bun>` |
+| `sp`   | `swpm --pin <npm\|yarn[@berry\|@classic]\|pnpm\|bun>` |
 | `spn`  | `swpm --pin npm`                            |
-| `spy`  | `swpm --pin yarn`                           |
+| `spy`  | `swpm --pin yarn@classic`                           |
 | `spyb` | `swpm --pin yarn@berry`                     |
 | `spp`  | `swpm --pin pnp`                            |
 | `spb`  | `swpm --pin bun`                            |
@@ -464,7 +464,7 @@ Quick and short aliases for `swpm` and `swpx` commands.
 | Package/Alias  | `sif`                            |
 | -------------- | -------------------------------- |
 | **npm**        | `npm ci`                         |
-| **yarn**       | `yarn install --frozen-lockfile` |
+| **yarn@classic**       | `yarn install --frozen-lockfile` |
 | **yarn@berry** | `yarn install --immutable`       |
 | **pnpm**       | `pnpm install --frozen-lockfile` |
 | **bun**        | `bun install --frozen-lockfile`  |
@@ -539,7 +539,7 @@ Quick and short aliases for `swpm` and `swpx` commands.
 | Package/Alias  | `sup [<package>]`            | `sup vite`            |
 | -------------- | ---------------------------- | --------------------- |
 | **npm**        | `npm update [<package>]`     | `npm update vite`     |
-| **yarn**       | `yarn upgrade [<package>]`   | `yarn upgrade vite`   |
+| **yarn@classic**       | `yarn upgrade [<package>]`   | `yarn upgrade vite`   |
 | **yarn@berry** | `yarn semver up [<package>]` | `yarn semver up vite` |
 | **pnpm**       | `pnpm update [<package>]`    | `pnpm update vite`    |
 | **bun**        | `bun update [<package>]`     | `bun update vite`     |
@@ -549,7 +549,7 @@ Quick and short aliases for `swpm` and `swpx` commands.
 | Package/Alias  | `sug <package>`                   | `sug vite`                   |
 | -------------- | --------------------------------- | ---------------------------- |
 | **npm**        | `npm add <package>@latest`        | `npm add vite@latest`        |
-| **yarn**       | `yarn upgrade <package> --latest` | `yarn upgrade vite --latest` |
+| **yarn@classic**       | `yarn upgrade <package> --latest` | `yarn upgrade vite --latest` |
 | **yarn@berry** | `yarn up <package>`               | `yarn up vite`               |
 | **pnpm**       | `pnpm update <package> --latest`  | `pnpm update vite --latest`  |
 | **bun**        |  N/A                              |  N/A                         |
@@ -653,24 +653,24 @@ Flags are important to `swpm` and `swpx` because can modify or set his behavior.
 The `<swpm|swpx> --use` flag allows you to choose your Package Manager for a project.
 
 ```bash
-swpm <command> [args] --use <npm|yarn[@berry]|pnpm|bun>
-swpx <command> [args] -u <npm|yarn[@berry]|pnpm|bun>
+swpm <command> [args] --use <npm|yarn[@berry|@classic]|pnpm|bun>
+swpx <command> [args] -u <npm|yarn[@berry|@classic]|pnpm|bun>
 ```
 
 It will run the command using the selected Package Manager, no matter the `swpm` property in your `package.json`.
 
-> **Info**:  
-> Previously it will ask to run the set command when use `yarn`:  
-> `yarn set version classic` for `yarn`
-> `yarn set version berry` for `yarn@berry`
+> **Info**:
+> Previously it will ask to run the set command when use `yarn`:
+> `yarn set version classic` for `yarn@classic`
+> `yarn set version stable` for `yarn@berry`
 
 ### Pin
 
 The `swpm --pin` flag allows you to choose your Package Manager for a project.
 
 ```bash
-swpm --pin <npm|yarn[@berry]|pnpm|bun>
-swpm -p <npm|yarn[@berry]|pnpm|bun>
+swpm --pin <npm|yarn[@berry|@classic]|pnpm|bun>
+swpm -p <npm|yarn[@berry|@classic]|pnpm|bun>
 ```
 
 It will store the pinned Package Manager in the `package.json` file, so you can commit your choice of tools to version control:
@@ -681,12 +681,12 @@ It will store the pinned Package Manager in the `package.json` file, so you can 
 }
 ```
 
-> **Info**:  
-> Additionally it will ask to run the set command when pin `yarn`:  
-> `yarn set version classic` for `yarn`
-> `yarn set version berry` for `yarn@berry`
+> **Info**:
+> Additionally it will ask to run the set command when pin `yarn`:
+> `yarn set version classic` for `yarn@classic`
+> `yarn set version stable` for `yarn@berry`
 
-You also can set it manually. Just take care writing a valid Package Manager: `npm`, `yarn[@berry]`, `pnpm` or `bun`. And also remember to run the set command for `yarn` projects.
+You also can set it manually. Just take care writing a valid Package Manager: `npm`, `yarn[@berry|@classic]`, `pnpm` or `bun`. And also remember to run the set command for `yarn` projects.
 
 ### Unpin
 
@@ -703,9 +703,9 @@ It will remove the pinned Package Manager in the `package.json` file.
 The `<swpm|swpx> --test` flag show the equivalent command using the selected Package Manager, but **it will not run the command**
 
 ```bash
-swpm <command> [args] --test <npm|yarn[@berry]|pnpm|bun>
-swpm <command> [args] -t <npm|yarn[@berry]|pnpm|bun>
-swpx <command> -t <npm|yarn[@berry]|pnpm|bun>
+swpm <command> [args] --test <npm|yarn[@berry|@classic]|pnpm|bun>
+swpm <command> [args] -t <npm|yarn[@berry|@classic]|pnpm|bun>
+swpx <command> -t <npm|yarn[@berry|@classic]|pnpm|bun>
 ```
 
 It will show the command using the selected Package Manager, no matter the `swpm` property in your `package.json`.
@@ -747,13 +747,13 @@ It will search firs the `swpm` property on the `package.json` file, and if doesn
 
 You can set a default or **global** pin Package Manager in order to avoid the `--use` flag on paths where no exist a `package.json` or `--pin` flag on each project.
 
-Create an `SWPM` environment variable with one of this values `<npm|yarn[@berry]|pnpm|bun>`.
+Create an `SWPM` environment variable with one of this values `<npm|yarn[@berry|@classic]|pnpm|bun>`.
 
 | OS    | Command                                                                              |
 | ----- | ------------------------------------------------------------------------------------ |
-| win   | `setx SWPM "<npm\|yarn[@berry]\|pnpm\|bun>"`                                         |
-| macOS | `echo 'export SWPM="<npm\|yarn[@berry]\|pnpm\|bun>"' >> <~/.bash_profile\|~/.zshrc>` |
-| linux | `echo 'export SWPM="<npm\|yarn[@berry]\|pnpm\|bun>"' >> <~/.bash_profile\|~/.zshrc>` |
+| win   | `setx SWPM "<npm\|yarn[@berry|@classic]\|pnpm\|bun>"`                                         |
+| macOS | `echo 'export SWPM="<npm\|yarn[@berry|@classic]\|pnpm\|bun>"' >> <~/.bash_profile\|~/.zshrc>` |
+| linux | `echo 'export SWPM="<npm\|yarn[@berry|@classic]\|pnpm\|bun>"' >> <~/.bash_profile\|~/.zshrc>` |
 
 ⇧ [Back to menu](#menu)
 

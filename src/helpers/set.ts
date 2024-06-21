@@ -1,9 +1,9 @@
-import { exit } from 'node:process'
-import { runCommand, showCommand } from './cmds.js'
-import packagesList from '../packages/list.js'
-import prompts from 'prompts'
 import chalk from 'chalk'
 import { stripIndent } from 'common-tags'
+import { exit } from 'node:process'
+import prompts from 'prompts'
+import packagesList from '../packages/list.js'
+import { runCommand, showCommand } from './cmds.js'
 
 import type { PackageManagerList } from '../packages/packages.types.js'
 import type { CommanderPackage } from '../translator/commander.types.js'
@@ -18,7 +18,7 @@ export const setPackageVersion = async (packageName: PackageManagerList) => {
       const command = `${packageName} set command ${config.version}`
       const color = config?.color ?? chalk.reset()
 
-      if (packageName === 'yarn') {
+      if (packageName.startsWith('yarn')) {
         console.log(stripIndent`
           This is an important step on ${chalk.hex(color).bold(packageName)} package manager
           for more information please visit ${chalk.bold.underline('https://yarnpkg.com/cli/set/version')}
@@ -38,7 +38,8 @@ export const setPackageVersion = async (packageName: PackageManagerList) => {
       }
 
       const cmdr: CommanderPackage = {
-        cmd: packageName,
+        id: packageName,
+        cmd: config.cmd,
         args: ['set', 'version', config.version],
         origin: undefined,
         config

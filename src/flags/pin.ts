@@ -1,21 +1,21 @@
-import { exit } from 'node:process'
 import chalk from 'chalk'
+import { exit } from 'node:process'
 import { getPackageJson, savePackageJson } from '../helpers/files.js'
 
 import type { PackageConfiguration } from '../packages/packages.types.js'
 
 type Props = {
-  cmd: PackageConfiguration['cmd']
+  id: PackageConfiguration['id']
   config: Pick<PackageConfiguration, 'color'>
 }
 
-export const pinPackageManager = async ({ cmd, config }: Props) => {
+export const pinPackageManager = async ({ id, config }: Props) => {
   const packageJson = await getPackageJson()
 
   if (packageJson) {
-    packageJson.swpm = cmd
+    packageJson.swpm = id
     await savePackageJson(packageJson)
-    console.log(`${chalk.green.bold('success')}: ${chalk.hex(config.color).bold(cmd)} was pinned on ${chalk.bold('package.json')} file.`)
+    console.log(`${chalk.green.bold('success')}: ${chalk.hex(config.color).bold(id)} was pinned on ${chalk.bold('package.json')} file.`)
     exit(0)
   }
 }

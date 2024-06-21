@@ -1,13 +1,13 @@
-import chalk from 'chalk';
-import { stripIndents } from 'common-tags';
-import { exit } from 'node:process';
+import chalk from 'chalk'
+import { stripIndents } from 'common-tags'
+import { exit } from 'node:process'
 
-import { getCommandResult } from '../helpers/cmds.js';
-import { commandVerification, get } from '../helpers/get.js';
-import { getOriginIcon } from '../helpers/icons.js';
-import { getSwpmInfo } from '../helpers/info.js';
+import { getCommandResult } from '../helpers/cmds.js'
+import { commandVerification, get } from '../helpers/get.js'
+import { getOriginIcon } from '../helpers/icons.js'
+import { getSwpmInfo } from '../helpers/info.js'
 
-import type { CommanderPackage } from '../translator/commander.types.js';
+import type { CommanderPackage } from '../translator/commander.types.js'
 
 type Info = {
   _: CommanderPackage['cmd'],
@@ -17,7 +17,7 @@ type Info = {
   origin: CommanderPackage['origin'],
   volta: boolean,
   versions: Partial<{
-    [key in NonNullable<CommanderPackage['cmd']> | "swpm" | "node"]: string
+    [key in NonNullable<CommanderPackage['cmd']> | 'swpm' | 'node']: string
   }>
 }
 
@@ -26,21 +26,21 @@ export const showNoPackageDetected = () => {
   ${chalk.red.bold('Error')}: no Package Manager or Environment Variable was found.
 
   Please review if the current path has a ${chalk.bold('package.json')} or a ${chalk.bold('lock')} file.
-  Highly recommend pin a Package Manager with ${chalk.blue.bold('swpm --pin <npm|yarn[@berry]|pnpm|bun>')} command.
+  Highly recommend pin a Package Manager with ${chalk.blue.bold('swpm --pin <npm|yarn[@berry|@classic]|pnpm|bun>')} command.
 `)
   exit(1)
 }
 
-export const getPackageInformation = async ({ cmd, origin, config, volta }: CommanderPackage): Promise<Info> => {
+export const getPackageInformation = async ({ cmd, origin, version, config, volta }: CommanderPackage): Promise<Info> => {
   const nodeVersion = getCommandResult({ command: 'node --version', volta })
   const { version: swpmVersion } = await getSwpmInfo()
   const url = config?.url ?? ''
   const isInstalled = !!cmd && await commandVerification(cmd)
-  const packageVersion = isInstalled ? getCommandResult({ command: `${cmd} --version`, volta }) : 'not found'
+  const packageVersion = isInstalled ? getCommandResult({ command: `${cmd} --version`, volta }) : version || 'not found'
 
-  let alias = undefined;
-  const majorVersionRegex = parseInt(packageVersion?.match(/\d+/m)?.[0] ?? '');
-  const majorVersion = Number.isNaN(majorVersionRegex) ? undefined : majorVersionRegex;
+  let alias
+  const majorVersionRegex = parseInt(packageVersion?.match(/\d+/m)?.[0] ?? '')
+  const majorVersion = Number.isNaN(majorVersionRegex) ? undefined : majorVersionRegex
   if (cmd === 'yarn' && typeof majorVersion === 'number') {
     alias = majorVersion > 1 ? 'berry' : 'classic'
   }
@@ -50,18 +50,19 @@ export const getPackageInformation = async ({ cmd, origin, config, volta }: Comm
 
   const output = {
     _: cmd,
-    using: cmd,
-    alias: alias,
-    majorVersion: majorVersion,
-    version: packageVersion,
+    using: config?.cmd ?? cmd,
+    alias,
+    major: majorVersion,
+    detectedVersion: packageVersion,
     error: errorNoCmdFound || errorCmdNotInstalled || null,
     ready: !!cmd && isInstalled,
+    version,
     origin,
     volta: !!volta,
     versions: {
       swpm: swpmVersion,
       node: nodeVersion?.replace(/v/, ''),
-      ...(config?.cmd && { [config.cmd]: packageVersion }),
+      ...(config?.cmd && { [config.cmd]: packageVersion })
     }
   }
   return output
@@ -81,7 +82,7 @@ export const renderInfoMessage = async (info: Info, { config }: CommanderPackage
       No Package Manager or Environment Variable was found.
 
       Please review if the current path has a ${chalk.bold('package.json')} or a ${chalk.bold('lock')} file.
-      Highly recommend pin a Package Manager with ${chalk.blue.bold('swpm --pin <npm|yarn[@berry]|pnpm|bun>')} command.
+      Highly recommend pin a Package Manager with ${chalk.blue.bold('swpm --pin <npm|yarn[@berry|@classic]|pnpm|bun>')} command.
     `
     message += '\n'
   }
@@ -129,20 +130,18 @@ export const showPackageInformationJson = async (cmdr: CommanderPackage) => {
   exit(0)
 }
 
-
-  export const showPackageInformationSelect = async (cmdr: CommanderPackage, pick: string) => {
-    const info = await getPackageInformation(cmdr)
-    const output = get(info, pick)
-    if (output) {
-      if (typeof output === 'string') {
-        process.stdout.write(output)
-      } else {
-        process.stdout.write(JSON.stringify(output, null, 2))
-      }
-      exit (0)
+export const showPackageInformationSelect = async (cmdr: CommanderPackage, pick: string) => {
+  const info = await getPackageInformation(cmdr)
+  const output = get(info, pick)
+  if (output) {
+    if (typeof output === 'string') {
+      process.stdout.write(output)
+    } else {
+      process.stdout.write(JSON.stringify(output, null, 2))
     }
-    console.log(stripIndents`Invalid value - ${pick} doesn't match any available value`)
-    await renderInfoMessage(info, cmdr)
-    exit(1)
+    exit(0)
   }
-
+  console.log(stripIndents`Invalid value - ${pick} doesn't match any available value`)
+  await renderInfoMessage(info, cmdr)
+  exit(1)
+}

@@ -1,6 +1,6 @@
-import { it, expect, describe } from 'vitest'
-import { testCommandResult } from '../../.vitest/helpers'
-import { installCases, installFrozenCases, installLockCases } from '../cli/swpm/commands/install.test'
+import { describe, expect, it } from 'vitest';
+import { testCommandResult } from '../../.vitest/helpers';
+import { installCases, installFrozenCases, installLockCases } from '../cli/swpm/commands/install.test';
 
 describe('si', () => {
   it.each(installCases)('%s', (pkg, expected) => {

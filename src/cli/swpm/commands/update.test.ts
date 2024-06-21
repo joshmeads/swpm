@@ -1,9 +1,9 @@
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { testCommandResult } from '../../../../.vitest/helpers'
 
 export const updateCases = [
   ['npm', 'npm update vite'],
-  ['yarn', 'yarn upgrade vite'],
+  ['yarn@classic', 'yarn upgrade vite'],
   ['yarn@berry', 'yarn semver up vite'],
   ['pnpm', 'pnpm update vite'],
   ['bun', 'bun update vite']
@@ -19,7 +19,7 @@ describe('update', () => {
 describe('update --global', () => {
   it.each([
     ['npm', 'npm update vite --global'],
-    ['yarn', 'yarn global upgrade vite'],
+    ['yarn@classic', 'yarn global upgrade vite'],
     ['yarn@berry', 'yarn global semver up vite'],
     ['pnpm', 'pnpm update vite --global'],
     ['bun', 'bun update vite --global']

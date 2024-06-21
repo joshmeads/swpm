@@ -1,31 +1,31 @@
-import npm from './managers/npm.js'
-import yarn from './managers/yarn.js'
-import yarnBerry from './managers/yarn@berry.js'
-import pnpm from './managers/pnpm.js'
 import bun from './managers/bun.js'
+import npm from './managers/npm.js'
+import pnpm from './managers/pnpm.js'
+import yarnBerry from './managers/yarn@berry.js'
+import yarnClassic from './managers/yarn@classic.js'
 
-import type { PackageManagerList } from './packages.types.js'
 import type { CommanderPackage } from '../translator/commander.types.js'
+import type { PackageManagerList } from './packages.types.js'
 
-const packageManagerList = [
+export const packageManagerList = [
   npm,
-  yarn,
+  yarnClassic,
   yarnBerry,
   pnpm,
   bun
 ]
 
 export const availablePackages = () => {
-  return packageManagerList.map((pkg) => pkg.cmd)
+  return packageManagerList.map((pkg) => pkg.id)
 }
 
-export const packageExists = (pkg: PackageManagerList) => {
-  return availablePackages().includes(pkg)
+export const packageConfigExists = (id: PackageManagerList) => {
+  return availablePackages().includes(id)
 }
 
-export const getPackageConfiguration = async (cmdr: Pick<CommanderPackage, 'cmd'>, ext: 'js' | 'ts' = 'js') => {
+export const getPackageConfiguration = async (cmdr: Pick<CommanderPackage, 'id'>, ext: 'js' | 'ts' = 'js') => {
   try {
-    const config = await import(`./managers/${cmdr.cmd}.${ext}`)
+    const config = await import(`./managers/${cmdr.id}.${ext}`)
     return config?.default
   } catch {
     return {}

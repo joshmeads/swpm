@@ -1,10 +1,10 @@
-import { it, expect, describe } from 'vitest'
-import { testCommandResult } from '../../.vitest/helpers'
+import { describe, expect, it } from 'vitest';
+import { testCommandResult } from '../../.vitest/helpers';
 
 describe('sx', () => {
   it.each([
     ['npm', 'npx vitest'],
-    ['yarn', 'yarn dlx vitest'],
+    ['yarn@classic', 'yarn dlx vitest'],
     ['yarn@berry', 'yarn dlx vitest'],
     ['pnpm', 'pnpm dlx vitest'],
     ['bun', 'bunx vitest']

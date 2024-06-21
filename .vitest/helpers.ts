@@ -1,4 +1,7 @@
-import { execSync } from 'node:child_process'
+import { execSync } from 'node:child_process';
+import { resolve } from 'node:path';
+
+const binLocation = resolve(__dirname, '../bin')
 
 export const testCommandResult = (command: string): string => {
   try {

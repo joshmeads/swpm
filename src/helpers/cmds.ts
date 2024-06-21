@@ -1,11 +1,10 @@
-import { exit } from 'node:process'
-import { spawn, spawnSync, execSync } from 'node:child_process'
-import chalk from 'chalk'
-import { stripIndents } from 'common-tags'
-import { getOriginIcon } from './icons.js'
+import chalk from 'chalk';
+import { stripIndents } from 'common-tags';
+import { execSync, spawn, spawnSync } from 'node:child_process';
+import { exit } from 'node:process';
+import { getOriginIcon } from './icons.js';
 
-import type { PackageManagerList } from '../packages/packages.types.js'
-import type { CommanderPackage } from '../translator/commander.types.js'
+import type { CommanderPackage } from '../translator/commander.types.js';
 import type {
   AddArgs,
   AddPositionalProps,
@@ -14,7 +13,7 @@ import type {
   ReplaceCommandProps,
   SpreadCommand,
   TranslateCommandProp
-} from './cmds.types.js'
+} from './cmds.types.js';
 
 const addArgs = ({ yargs, cmdr, flags }: AddArgs) => {
   for (const flag of flags) {
@@ -70,17 +69,13 @@ export const translateCommand = ({ yargs, cmdr }: TranslateCommandProp) => {
   }
 }
 
-const cleanSpecificVersion = (cmd: PackageManagerList) => {
-  return cmd?.split('@')?.[0]
-}
-
 export const showCommand = async ({ origin, cmd, args, config }: CommanderPackage) => {
-  const run = cleanSpecificVersion(cmd!)
+  const run = cmd
   console.log(`${(origin ? getOriginIcon(origin) + ' ' : '')}${chalk.hex(config?.color ?? '').bold(run)} ${args?.join(' ')}`)
 }
 
 export const runCommand = ({ cmd, args, volta = false }: CommanderPackage) => {
-  let run = cleanSpecificVersion(cmd!)
+  let run = cmd
 
   if (cmd && volta && run !== 'volta') {
     args = ['run', cmd, ...args]

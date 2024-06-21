@@ -1,8 +1,10 @@
-import type { PackageConfiguration, PackageManagerList } from '../packages/packages.types.js'
 import type { PackageJson as BasePackageJson } from 'type-fest'
+import type { PackageConfiguration, PackageManagerList, PackageManagersCmd } from '../packages/packages.types.js'
 
 export type CommanderPackage = {
-    cmd?: PackageManagerList
+    id?: PackageManagerList
+    cmd?: PackageManagersCmd
+    version?: string;
     args: string[]
     origin?: 'pinned' | 'packageManager' | 'environment' | 'lock'
     config?: PackageConfiguration

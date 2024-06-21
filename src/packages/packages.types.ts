@@ -1,7 +1,9 @@
-type PackageManagers = 'pnpm' | 'npm' | 'yarn' | 'yarn@berry' | 'bun'
+type PackageManagers = 'pnpm' | 'npm' | 'yarn@classic' | 'yarn@berry' | 'bun'
+type PackageManagersCmds = 'pnpm' | 'npm' | 'yarn' | 'bun'
 type ExecuteManagers = 'pnpm dlx' | 'npx' | 'yarn dlx' | 'bunx'
 type VersionManagers = 'volta'
 export type PackageManagerList = PackageManagers| ExecuteManagers | VersionManagers
+export type PackageManagersCmd = PackageManagersCmds| ExecuteManagers | VersionManagers
 
 type ColorValueHex = `#${string}`
 
@@ -14,7 +16,8 @@ export type ArgsConfiguration = {
 }
 
 export type PackageConfiguration = {
-  cmd: PackageManagerList
+  id: PackageManagerList
+  cmd: PackageManagersCmd
   exc: ExecuteManagers
   color: ColorValueHex
   url: string

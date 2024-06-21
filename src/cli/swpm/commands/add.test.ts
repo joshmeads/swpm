@@ -1,10 +1,10 @@
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { testCommandResult } from '../../../../.vitest/helpers'
 import { commandVerification } from '../../../../bin/src/helpers/get'
 
 export const addCases = [
   ['npm', 'npm add vite'],
-  ['yarn', 'yarn add vite'],
+  ['yarn@classic', 'yarn add vite'],
   ['yarn@berry', 'yarn add vite'],
   ['pnpm', 'pnpm add vite'],
   ['bun', 'bun add vite']
@@ -19,7 +19,7 @@ describe('add', () => {
 
 export const addDevCases = [
   ['npm', 'npm add vite --save-dev'],
-  ['yarn', 'yarn add vite --dev'],
+  ['yarn@classic', 'yarn add vite --dev'],
   ['yarn@berry', 'yarn add vite --dev'],
   ['pnpm', 'pnpm add vite --save-dev'],
   ['bun', 'bun add vite --dev']
@@ -35,7 +35,7 @@ describe('add --save-dev', () => {
 describe('add --save-optional', () => {
   it.each([
     ['npm', 'npm add vite --save-optional'],
-    ['yarn', 'yarn add vite --optional'],
+    ['yarn@classic', 'yarn add vite --optional'],
     ['yarn@berry', 'yarn add vite --optional'],
     ['pnpm', 'pnpm add vite --save-optional'],
     ['bun', 'bun add vite --optional']
@@ -48,7 +48,7 @@ describe('add --save-optional', () => {
 describe('add --save-peer', () => {
   it.each([
     ['npm', 'npm add vite --save-peer'],
-    ['yarn', 'yarn add vite --peer'],
+    ['yarn@classic', 'yarn add vite --peer'],
     ['yarn@berry', 'yarn add vite --peer'],
     ['pnpm', 'pnpm add vite --save-peer'],
     ['bun', ''] // not available
@@ -60,7 +60,7 @@ describe('add --save-peer', () => {
 
 export const addSaveExact = [
   ['npm', 'npm add vite --save-exact'],
-  ['yarn', 'yarn add vite --exact'],
+  ['yarn@classic', 'yarn add vite --exact'],
   ['yarn@berry', 'yarn add vite --exact'],
   ['pnpm', 'pnpm add vite --save-exact'],
   ['bun', 'bun add vite --exact']
@@ -75,7 +75,7 @@ describe('add --save-exact', () => {
 
 export const addVoltaCases = [
   ['npm', 'volta install vite'],
-  ['yarn', 'volta install vite'],
+  ['yarn@classic', 'volta install vite'],
   ['yarn@berry', 'volta install vite'],
   ['pnpm', 'volta install vite'],
   ['bun', 'volta install vite']
@@ -83,7 +83,7 @@ export const addVoltaCases = [
 
 export const addPackageCases = [
   ['npm', 'npm add vite --global'],
-  ['yarn', 'yarn global add vite'],
+  ['yarn@classic', 'yarn global add vite'],
   ['yarn@berry', 'yarn global add vite'],
   ['pnpm', 'pnpm add vite --global'],
   ['bun', 'bun add vite --global']

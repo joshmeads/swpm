@@ -1,6 +1,7 @@
 import type { PackageConfiguration } from '../packages.types.js'
 
 const yarn: PackageConfiguration = {
+  id: 'yarn@classic',
   cmd: 'yarn',
   exc: 'yarn dlx',
   color: '#3a90b8',

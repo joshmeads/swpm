@@ -1,13 +1,13 @@
-import { afterEach, it, expect, describe, vi } from 'vitest'
-import { checkErrorMessage } from './messages'
-import { exit } from 'node:process'
+import { exit } from 'node:process';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { checkErrorMessage } from './messages';
 
 describe('checkErrorMessage', () => {
   vi.mock('node:process', async () => {
     const mod = await vi.importActual<typeof import('node:process')>('node:process')
     return {
       ...mod,
-      exit: await vi.fn()
+      exit: vi.fn()
     }
   })
   const exitMock = vi.mocked(exit)

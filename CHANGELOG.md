@@ -45,7 +45,7 @@ Security    to invite users to upgrade in case of vulnerabilities.
 
 ### Fixed
 
-- `--global` flag position on `yarn` and `yarn@berry` with `interactive` command
+- `--global` flag position on `yarn@classic` and `yarn@berry` with `interactive` command
 
 ### Added
 
@@ -60,7 +60,7 @@ Security    to invite users to upgrade in case of vulnerabilities.
 
 ### Fixed
 
-- `global` flag position on `yarn` and `yarn@berry`
+- `global` flag position on `yarn@classic` and `yarn@berry`
 - `package` parameter on `add` command
 
 ## 2.3.1 - 2023/10/04
