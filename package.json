@@ -136,7 +136,7 @@
   },
   "np": {
     "testScript": "test",
-    "test": false,
+    "tests": false,
     "contents": "bin",
     "branch": "fork"
   }
