@@ -1,11 +1,11 @@
 {
   "name": "@joshmeads/swpm",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "engines": {
     "node": ">=16"
   },
   "description": "Switch Package Manager",
-  "exports": "./src/cli/swpm.js",
+  "main": "./src/cli/swpm.js",
   "bin": {
     "swpm": "./src/cli/swpm.js",
     "swpx": "./src/cli/swpx.js",
