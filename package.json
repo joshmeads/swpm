@@ -133,5 +133,11 @@
   "packageManager": "npm@10.2.1",
   "publishConfig": {
     "access": "public"
+  },
+  "np": {
+    "testScript": "test",
+    "test": false,
+    "contents": "bin",
+    "branch": "fork"
   }
 }
