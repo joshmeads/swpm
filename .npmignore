@@ -4,4 +4,16 @@ types/
 **/*.map.*
 build/
 swpm*.tgz
+joshmeads-swpm*.tgz
 tsconfig.build.tsbuildinfo
+.vscode/
+.github/
+.vitest/
+.release-it.json
+vitest.config.ts
+tsconfig*.json
+.eslint*
+
+# Source
+**/*.ts
+*.ts

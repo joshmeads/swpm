@@ -1,51 +1,51 @@
 {
   "name": "@joshmeads/swpm",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "engines": {
     "node": ">=16"
   },
   "description": "Switch Package Manager",
-  "main": "./src/cli/swpm.js",
+  "main": "bin/src/cli/swpm.js",
   "bin": {
-    "swpm": "./src/cli/swpm.js",
-    "swpx": "./src/cli/swpx.js",
-    "si": "./src/alias/si.js",
-    "sif": "./src/alias/sif.js",
-    "sa": "./src/alias/sa.js",
-    "sae": "./src/alias/sae.js",
-    "sad": "./src/alias/sad.js",
-    "sade": "./src/alias/sade.js",
-    "sag": "./src/alias/sag.js",
-    "srm": "./src/alias/srm.js",
-    "srg": "./src/alias/srg.js",
-    "sup": "./src/alias/sup.js",
-    "sug": "./src/alias/sug.js",
-    "sui": "./src/alias/sui.js",
-    "soe": "./src/alias/soe.js",
-    "sgr": "./src/alias/sgr.js",
-    "sgb": "./src/alias/sgb.js",
-    "sgp": "./src/alias/sgp.js",
-    "sgm": "./src/alias/sgm.js",
-    "sgd": "./src/alias/sgd.js",
-    "soc": "./src/alias/soc.js",
-    "son": "./src/alias/son.js",
-    "scr": "./src/alias/scr.js",
-    "scn": "./src/alias/scn.js",
-    "scl": "./src/alias/scl.js",
-    "scb": "./src/alias/scb.js",
-    "scd": "./src/alias/scd.js",
-    "scc": "./src/alias/scc.js",
-    "sca": "./src/alias/sca.js",
-    "scf": "./src/alias/scf.js",
-    "sci": "./src/alias/sci.js",
-    "sr": "./src/alias/sr.js",
-    "sp": "./src/alias/sp.js",
-    "spn": "./src/alias/spn.js",
-    "spy": "./src/alias/spy.js",
-    "spyb": "./src/alias/spyb.js",
-    "spp": "./src/alias/spp.js",
-    "spb": "./src/alias/spb.js",
-    "sx": "./src/alias/sx.js"
+    "swpm": "bin/src/cli/swpm.js",
+    "swpx": "bin/src/cli/swpx.js",
+    "si": "bin/src/alias/si.js",
+    "sif": "bin/src/alias/sif.js",
+    "sa": "bin/src/alias/sa.js",
+    "sae": "bin/src/alias/sae.js",
+    "sad": "bin/src/alias/sad.js",
+    "sade": "bin/src/alias/sade.js",
+    "sag": "bin/src/alias/sag.js",
+    "srm": "bin/src/alias/srm.js",
+    "srg": "bin/src/alias/srg.js",
+    "sup": "bin/src/alias/sup.js",
+    "sug": "bin/src/alias/sug.js",
+    "sui": "bin/src/alias/sui.js",
+    "soe": "bin/src/alias/soe.js",
+    "sgr": "bin/src/alias/sgr.js",
+    "sgb": "bin/src/alias/sgb.js",
+    "sgp": "bin/src/alias/sgp.js",
+    "sgm": "bin/src/alias/sgm.js",
+    "sgd": "bin/src/alias/sgd.js",
+    "soc": "bin/src/alias/soc.js",
+    "son": "bin/src/alias/son.js",
+    "scr": "bin/src/alias/scr.js",
+    "scn": "bin/src/alias/scn.js",
+    "scl": "bin/src/alias/scl.js",
+    "scb": "bin/src/alias/scb.js",
+    "scd": "bin/src/alias/scd.js",
+    "scc": "bin/src/alias/scc.js",
+    "sca": "bin/src/alias/sca.js",
+    "scf": "bin/src/alias/scf.js",
+    "sci": "bin/src/alias/sci.js",
+    "sr": "bin/src/alias/sr.js",
+    "sp": "bin/src/alias/sp.js",
+    "spn": "bin/src/alias/spn.js",
+    "spy": "bin/src/alias/spy.js",
+    "spyb": "bin/src/alias/spyb.js",
+    "spp": "bin/src/alias/spp.js",
+    "spb": "bin/src/alias/spb.js",
+    "sx": "bin/src/alias/sx.js"
   },
   "scripts": {
     "prebuild": "rm -rf bin/",
@@ -62,7 +62,8 @@
     "ts:check": "tsc --noEmit",
     "ts:diagnostics": "tsc --extendedDiagnostics",
     "ts:trace": "tsc --traceResolution",
-    "release": "np"
+    "prerelease": "npm run build",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -76,11 +77,7 @@
     "bun",
     "cli",
     "command-line",
-    "package-manager",
-    "javascript",
-    "typescript",
-    "node",
-    "nodejs"
+    "package-manager"
   ],
   "contributors": [
     "joshmeads",
@@ -120,7 +117,7 @@
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-n": "16.5.0",
     "eslint-plugin-promise": "6.1.1",
-    "np": "^10.0.6",
+    "release-it": "^17.4.1",
     "type-fest": "4.8.3",
     "typescript": "5.3.3",
     "vitest": "1.1.0"
@@ -134,10 +131,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "np": {
-    "testScript": "test",
-    "tests": false,
-    "contents": "bin",
-    "branch": "fork"
-  }
+  "files": [
+    "bin"
+  ]
 }
