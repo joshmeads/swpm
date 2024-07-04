@@ -1,13 +1,13 @@
-import chalk from 'chalk'
-import commandExists from 'command-exists'
-import { stripIndents } from 'common-tags'
-import { env, exit } from 'node:process'
-import semver from 'semver'
-import { getPackageJson, lockFileExists } from '../helpers/files.js'
-import packagesList, { packageConfigExists } from '../packages/list.js'
+import chalk from 'chalk';
+import commandExists from 'command-exists';
+import { stripIndents } from 'common-tags';
+import { env, exit } from 'node:process';
+import semver from 'semver';
+import { getPackageJson, lockFileExists } from '../helpers/files.js';
+import packagesList, { packageConfigExists } from '../packages/list.js';
 
-import type { PackageManagerList, PackageManagersCmd } from '../packages/packages.types.js'
-import type { CommanderPackage, PackageJson } from '../translator/commander.types.js'
+import type { PackageManagerList, PackageManagersCmd } from '../packages/packages.types.js';
+import type { CommanderPackage, PackageJson } from '../translator/commander.types.js';
 
 const propertyExists = (packageJson: PackageJson, property: string) => {
   return (property in packageJson)
@@ -68,6 +68,8 @@ const searchForLockFiles = async () => {
       return [pkg.id, pkg.semver]
     }
   }
+
+  return [];
 }
 
 const searchForEnv = (name: 'SWPM') => {
@@ -111,7 +113,7 @@ export const getCurrentPackageManager = async (): Promise<{origin: CommanderPack
     }
 
     // https://nodejs.org/api/corepack.html
-    const [packageManager, _version] = await getPropertyValue(packageJson, 'packageManager') as [PackageManagerList, string]
+    const [packageManager, _version] = getPropertyValue(packageJson, 'packageManager') as [PackageManagerList, string]
     if (packageManager && packageConfigExists(packageManager)) {
       return { origin: 'packageManager', id: correctId(packageManager, _version), version: _version }
     }
